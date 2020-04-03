@@ -15,4 +15,3 @@ spring:
 
 r2dbc.migrate:
   resourcesPath: classpath:/db/migration/*.sql
-  dialect: postgresql
