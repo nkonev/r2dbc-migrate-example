@@ -12,6 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.3.0.M3</spring.boot.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencyManagement>
@@ -65,7 +66,7 @@
         <dependency>
             <groupId>name.nkonev.r2dbc-migrate</groupId>
             <artifactId>spring-boot-starter-r2dbc-migrate</artifactId>
-            <version>0.0.9</version>
+            <version>0.0.13</version>
         </dependency>
 
         <dependency>
