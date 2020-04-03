@@ -28,7 +28,7 @@ public class CustomerApplication {
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
         return Mono.from(connectionFactory.create())
-                .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer").execute()).flatMap(o -> o.map((row, rowMetadata) -> {
+                .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
                     Integer id = row.get("id", Integer.class);
                     String firstName = row.get("first_name", String.class);
                     String lastName = row.get("last_name", String.class);
