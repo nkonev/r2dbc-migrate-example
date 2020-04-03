@@ -101,11 +101,6 @@
             </snapshots>
         </repository>
         <repository>
-            <id>repository.spring.release</id>
-            <name>Spring GA Repository</name>
-            <url>https://repo.spring.io/release</url>
-        </repository>
-        <repository>
             <id>repository.spring.milestone</id>
             <name>Spring GA Repository</name>
             <url>https://repo.spring.io/milestone</url>
