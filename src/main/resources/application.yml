@@ -1,0 +1,20 @@
+# logging.level.org.springframework.data.r2dbc: DEBUG
+
+server:
+  port: 8383
+
+spring:
+  r2dbc:
+    url: r2dbc:pool:postgresql://localhost:4433/customer_db
+    username: app_user
+    password: password
+    pool:
+      validation-query: SELECT 1
+    properties:
+      lock_timeout: 40000
+      statement_timeout: 40000
+      idle_in_transaction_session_timeout: 40000
+
+r2dbc.migrate:
+  resourcesPath: classpath:/db/migration/*.sql
+  dialect: postgresql

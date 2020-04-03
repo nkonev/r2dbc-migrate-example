@@ -1,0 +1,24 @@
+# This file used for both developer and demo purposes.
+# It contains environment
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:12.2
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: customer_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 4433:5432
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "1"
+
+volumes:
+  postgres_data:
