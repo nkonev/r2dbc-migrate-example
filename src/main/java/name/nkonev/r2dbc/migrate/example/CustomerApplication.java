@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import java.time.Duration;
 
 @SpringBootApplication
@@ -27,12 +28,12 @@ public class CustomerApplication {
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
         return Mono.from(connectionFactory.create())
-                .flatMapMany(testConnection -> Flux.from( testConnection.createStatement("SELECT * FROM customer").execute() ).flatMap(o -> o.map((row, rowMetadata) -> {
+                .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer").execute()).flatMap(o -> o.map((row, rowMetadata) -> {
                     Integer id = row.get("id", Integer.class);
                     String firstName = row.get("first_name", String.class);
                     String lastName = row.get("last_name", String.class);
                     return new Customer(id, firstName, lastName);
-                })).doFinally(signalType -> testConnection.close()));
+                })).doFinally(signalType -> connection.close()));
     }
 
     @Bean

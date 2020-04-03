@@ -1,5 +1,3 @@
-# logging.level.org.springframework.data.r2dbc: DEBUG
-
 server:
   port: 8383
 
