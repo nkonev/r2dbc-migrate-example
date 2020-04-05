@@ -75,8 +75,8 @@
         </dependency>
         <dependency>
             <groupId>name.nkonev.r2dbc-migrate</groupId>
-            <artifactId>spring-boot-starter-r2dbc-migrate</artifactId>
-            <version>0.0.22</version>
+            <artifactId>r2dbc-migrate-spring-boot-starter</artifactId>
+            <version>0.0.24</version>
         </dependency>
 
         <dependency>
