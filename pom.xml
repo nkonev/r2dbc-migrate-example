@@ -67,7 +67,8 @@
         <dependency>
             <groupId>name.nkonev.r2dbc-migrate</groupId>
             <artifactId>r2dbc-migrate-core</artifactId>
-            <version>0.0.26</version>
+            <version>0.0.27-SNAPSHOT</version>
+            <classifier>shaded</classifier>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
