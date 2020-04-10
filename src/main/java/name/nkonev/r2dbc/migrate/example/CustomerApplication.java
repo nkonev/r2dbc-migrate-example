@@ -12,6 +12,7 @@ import name.nkonev.r2dbc.migrate.core.R2dbcMigrateProperties;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.netty.ByteBufFlux;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
 import java.io.ByteArrayOutputStream;
@@ -21,7 +22,7 @@ public class CustomerApplication {
 
     static final ObjectMapper mapper = new ObjectMapper();
 
-    private static ByteBuf toByteBuf(Object any) {
+    private static byte[] toByteArray(Object any) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             mapper.writeValue(out, any);
@@ -29,9 +30,7 @@ public class CustomerApplication {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return ByteBufAllocator.DEFAULT
-                .buffer()
-                .writeBytes(out.toByteArray());
+        return out.toByteArray();
     }
 
     public static void main(String[] args) {
@@ -46,14 +45,14 @@ public class CustomerApplication {
                         .route(routes ->
                                 routes.get("/customer",
                                         (request, response) -> {
-                                            Flux<ByteBuf> byteBufFlux = Mono.from(connectionFactory.create())
+                                            Flux<Customer> customerFlux = Mono.from(connectionFactory.create())
                                                     .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
                                                         Integer id = row.get("id", Integer.class);
                                                         String firstName = row.get("first_name", String.class);
                                                         String lastName = row.get("last_name", String.class);
                                                         return new Customer(id, firstName, lastName);
-                                                    })).doFinally(signalType -> connection.close()))
-                                                    .map(CustomerApplication::toByteBuf);
+                                                    })).doFinally(signalType -> connection.close()));
+                                            ByteBufFlux byteBufFlux = ByteBufFlux.fromInbound(customerFlux.map(CustomerApplication::toByteArray));
                                             return response.send(byteBufFlux);
                                         }))
                         .bindNow();
