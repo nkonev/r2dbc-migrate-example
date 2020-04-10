@@ -79,24 +79,4 @@ public class CustomerApplication {
                     .build());
     }
 
-
-    /*
-    @GetMapping("/customer")
-    public Flux<Customer> getCustomer() {
-        return Mono.from(connectionFactory.create())
-                .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
-                    Integer id = row.get("id", Integer.class);
-                    String firstName = row.get("first_name", String.class);
-                    String lastName = row.get("last_name", String.class);
-                    return new Customer(id, firstName, lastName);
-                })).doFinally(signalType -> connection.close()));
-    }
-
-    @Bean
-    public ConnectionFactoryOptionsBuilderCustomizer setConnectTimeout() {
-        // PostgresqlConnectionFactoryProvider
-        // ConnectionFactoryOptions
-        return builder -> builder.option(ConnectionFactoryOptions.CONNECT_TIMEOUT, Duration.ofSeconds(10));
-    }*/
-
 }
