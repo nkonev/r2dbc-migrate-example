@@ -19,14 +19,14 @@
             <dependency>
                 <groupId>io.r2dbc</groupId>
                 <artifactId>r2dbc-bom</artifactId>
-                <version>Arabba-RELEASE</version>
+                <version>Arabba-SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-bom</artifactId>
-                <version>Californium-RELEASE</version>
+                <version>Dysprosium-SR6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
