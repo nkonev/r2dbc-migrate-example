@@ -1,5 +1,6 @@
 package name.nkonev.r2dbc.migrate.example;
 
+import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,12 @@ public class CustomerApplication {
 
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
-        return Mono.from(connectionFactory.create())
-                .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
-                    Integer id = row.get("id", Integer.class);
-                    String firstName = row.get("first_name", String.class);
-                    String lastName = row.get("last_name", String.class);
-                    return new Customer(id, firstName, lastName);
-                })).doFinally(signalType -> connection.close()));
+      return Flux.usingWhen(connectionFactory.create(), connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
+          Integer id = row.get("id", Integer.class);
+          String firstName = row.get("first_name", String.class);
+          String lastName = row.get("last_name", String.class);
+          return new Customer(id, firstName, lastName);
+        })), Connection::close);
     }
 
     @Bean
