@@ -45,15 +45,15 @@ public class CustomerApplication {
                         .route(routes ->
                                 routes.get("/customer",
                                         (request, response) -> {
-                                            Flux<Customer> customerFlux = Mono.from(connectionFactory.create())
-                                                    .flatMapMany(connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
-                                                        Integer id = row.get("id", Integer.class);
-                                                        String firstName = row.get("first_name", String.class);
-                                                        String lastName = row.get("last_name", String.class);
-                                                        return new Customer(id, firstName, lastName);
-                                                    })).doFinally(signalType -> connection.close()));
-                                            ByteBufFlux byteBufFlux = ByteBufFlux.fromInbound(customerFlux.map(CustomerApplication::toByteArray));
-                                            return response.send(byteBufFlux);
+                                          Flux<Customer> customerFlux = Flux.usingWhen(Mono.from(connectionFactory.create()),
+                                              connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
+                                                Integer id = row.get("id", Integer.class);
+                                                String firstName = row.get("first_name", String.class);
+                                                String lastName = row.get("last_name", String.class);
+                                                return new Customer(id, firstName, lastName);
+                                              })), Connection::close);
+                                          ByteBufFlux byteBufFlux = ByteBufFlux.fromInbound(customerFlux.map(CustomerApplication::toByteArray));
+                                          return response.send(byteBufFlux);
                                         }))
                         .bindNow();
 
