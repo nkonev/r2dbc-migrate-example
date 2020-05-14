@@ -45,7 +45,7 @@ public class CustomerApplication {
                         .route(routes ->
                                 routes.get("/customer",
                                         (request, response) -> {
-                                          Flux<Customer> customerFlux = Flux.usingWhen(Mono.from(connectionFactory.create()),
+                                          Flux<Customer> customerFlux = Flux.usingWhen(connectionFactory.create(),
                                               connection -> Flux.from(connection.createStatement("SELECT * FROM customer ORDER BY id").execute()).concatMap(o -> o.map((row, rowMetadata) -> {
                                                 Integer id = row.get("id", Integer.class);
                                                 String firstName = row.get("first_name", String.class);
