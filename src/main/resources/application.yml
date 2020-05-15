@@ -13,5 +13,6 @@ spring:
       statement_timeout: 40000
       idle_in_transaction_session_timeout: 40000
 
-r2dbc.migrate:
-  resourcesPath: classpath:/db/migration/*.sql
+r2dbc:
+  migrate:
+    resources-path: classpath:/db/migration/*.sql
