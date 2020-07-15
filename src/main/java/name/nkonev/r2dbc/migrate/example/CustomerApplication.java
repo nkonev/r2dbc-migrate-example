@@ -2,7 +2,10 @@ package name.nkonev.r2dbc.migrate.example;
 
 import io.r2dbc.spi.ConnectionFactoryOptions;
 import java.time.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.r2dbc.ConnectionFactoryOptionsBuilderCustomizer;
@@ -19,18 +22,15 @@ public class CustomerApplication {
     @Autowired
     private DatabaseClient databaseClient;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
     }
 
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
-        return databaseClient.execute("SELECT * FROM customer ORDER BY id").map((row, rowMetadata) -> {
-            Integer id = row.get("id", Integer.class);
-            String firstName = row.get("first_name", String.class);
-            String lastName = row.get("last_name", String.class);
-            return new Customer(id, firstName, lastName);
-        }).all();
+        return getAllCustomersFlux(databaseClient);
     }
 
     @Bean
@@ -40,4 +40,23 @@ public class CustomerApplication {
         return builder -> builder.option(ConnectionFactoryOptions.CONNECT_TIMEOUT, Duration.ofSeconds(10));
     }
 
+    @Bean
+    public CommandLineRunner commandlineEntryPoint(DatabaseClient databaseClient) {
+        LOGGER.info("=== Print all customers ===");
+        getAllCustomersFlux(databaseClient).subscribe(customer -> {
+            LOGGER.info("Output: {}", customer);
+        });
+
+        return args -> { };
+    }
+
+    private Flux<Customer> getAllCustomersFlux(DatabaseClient databaseClient) {
+        return databaseClient.execute("SELECT * FROM customer ORDER BY id")
+            .map((row, rowMetadata) -> {
+                Integer id = row.get("id", Integer.class);
+                String firstName = row.get("first_name", String.class);
+                String lastName = row.get("last_name", String.class);
+                return new Customer(id, firstName, lastName);
+            }).all();
+    }
 }
