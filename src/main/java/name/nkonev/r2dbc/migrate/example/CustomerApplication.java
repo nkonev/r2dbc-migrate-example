@@ -36,7 +36,7 @@ public class CustomerApplication {
     public static void main(String[] args) {
         R2dbcMigrateProperties properties = new R2dbcMigrateProperties();
         properties.setResourcesPath("classpath:/db/migration/*.sql");
-        R2dbcMigrate.migrate(() -> makeConnectionMono(), properties).block();
+        R2dbcMigrate.migrate(getConnectionFactory(), properties).block();
 
         ConnectionFactory connectionFactory = getConnectionFactory();
         DisposableServer server =
@@ -59,12 +59,6 @@ public class CustomerApplication {
 
         server.onDispose()
                 .block();
-    }
-
-    private static Mono<Connection> makeConnectionMono() {
-        ConnectionFactory connectionFactory = getConnectionFactory();
-        Publisher<? extends Connection> connectionPublisher = connectionFactory.create();
-        return Mono.from(connectionPublisher);
     }
 
     private static ConnectionFactory getConnectionFactory() {
