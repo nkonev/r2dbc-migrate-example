@@ -15,4 +15,5 @@ spring:
 
 r2dbc:
   migrate:
-    resources-path: classpath:/db/migration/*.sql
+    resources-paths:
+      - classpath:/db/migration/*.sql
