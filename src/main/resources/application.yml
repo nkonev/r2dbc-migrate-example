@@ -17,3 +17,5 @@ r2dbc:
   migrate:
     resources-paths:
       - classpath:/db/migration/*.sql
+    migrationsTable: "\"my scheme\".migrations"
+    migrationsLockTable: "\"my scheme\".migrations_lock"

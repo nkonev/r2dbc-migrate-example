@@ -51,7 +51,7 @@ public class CustomerApplication {
     }
 
     private Flux<Customer> getAllCustomersFlux(DatabaseClient databaseClient) {
-        return databaseClient.execute("SELECT * FROM customer ORDER BY id")
+        return databaseClient.execute("SELECT * FROM \"my scheme\".customer ORDER BY id")
             .map((row, rowMetadata) -> {
                 Integer id = row.get("id", Integer.class);
                 String firstName = row.get("first_name", String.class);
