@@ -42,12 +42,12 @@ public class CustomerApplication {
 
     @Bean
     public CommandLineRunner commandlineEntryPoint(DatabaseClient databaseClient) {
-        LOGGER.info("=== Print all customers ===");
-        getAllCustomersFlux(databaseClient).subscribe(customer -> {
-            LOGGER.info("Output: {}", customer);
-        });
-
-        return args -> { };
+        return args -> {
+            LOGGER.info("=== Print all customers ===");
+            getAllCustomersFlux(databaseClient).subscribe(customer -> {
+                LOGGER.info("Output: {}", customer);
+            });
+        };
     }
 
     private Flux<Customer> getAllCustomersFlux(DatabaseClient databaseClient) {
