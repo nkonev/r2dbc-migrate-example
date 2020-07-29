@@ -1,14 +1,11 @@
 package name.nkonev.r2dbc.migrate.example;
 
-import io.r2dbc.spi.ConnectionFactoryOptions;
-import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.r2dbc.ConnectionFactoryOptionsBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +28,6 @@ public class CustomerApplication {
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
         return getAllCustomersFlux(databaseClient);
-    }
-
-    @Bean
-    public ConnectionFactoryOptionsBuilderCustomizer setConnectTimeout() {
-        // PostgresqlConnectionFactoryProvider
-        // ConnectionFactoryOptions
-        return builder -> builder.option(ConnectionFactoryOptions.CONNECT_TIMEOUT, Duration.ofSeconds(10));
     }
 
     @Bean
