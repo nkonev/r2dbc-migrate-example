@@ -1,8 +1,11 @@
 package name.nkonev.r2dbc.migrate.example;
 
 
+import org.springframework.data.annotation.Id;
+
 public class Customer {
 
+    @Id
     private Integer id;
 
     private String firstName;
