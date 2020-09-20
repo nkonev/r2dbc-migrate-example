@@ -10,6 +10,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions;
 import java.util.Collections;
 import name.nkonev.r2dbc.migrate.core.R2dbcMigrate;
 import name.nkonev.r2dbc.migrate.core.R2dbcMigrateProperties;
+import name.nkonev.r2dbc.migrate.reader.ReflectionsClasspathResourceReader;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -36,8 +37,8 @@ public class CustomerApplication {
 
     public static void main(String[] args) {
         R2dbcMigrateProperties properties = new R2dbcMigrateProperties();
-        properties.setResourcesPaths(Collections.singletonList("classpath:/db/migration/*.sql"));
-        R2dbcMigrate.migrate(getConnectionFactory(), properties).block();
+        properties.setResourcesPaths(Collections.singletonList("db/migration/"));
+        R2dbcMigrate.migrate(getConnectionFactory(), properties, new ReflectionsClasspathResourceReader()).block();
 
         ConnectionFactory connectionFactory = getConnectionFactory();
         DisposableServer server =
