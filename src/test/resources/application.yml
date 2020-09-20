@@ -1,6 +1,3 @@
-server:
-  port: 8383
-
 spring:
   r2dbc:
     url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=12.2
