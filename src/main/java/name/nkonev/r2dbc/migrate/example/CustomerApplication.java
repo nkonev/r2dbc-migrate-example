@@ -40,7 +40,7 @@ public class CustomerApplication {
         properties.setResourcesPaths(Collections.singletonList("db/migration/"));
         ConnectionFactory connectionFactory = getConnectionFactory();
 
-        R2dbcMigrate.migrate(connectionFactory, properties, new ReflectionsClasspathResourceReader()).block();
+        R2dbcMigrate.migrate(connectionFactory, properties, new ReflectionsClasspathResourceReader(), null).block();
 
         DisposableServer server =
                 HttpServer.create()
