@@ -5,3 +5,6 @@
 3. `curl -v http://localhost:8383/customer`
 4. Profit:
 ![Curl output](./.markdown/example.png)
+
+# Links
+https://projectreactor.io/docs/netty/release/reference/index.html
