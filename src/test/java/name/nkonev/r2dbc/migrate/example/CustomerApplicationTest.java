@@ -27,6 +27,7 @@ public class CustomerApplicationTest {
                 .value(List::size, equalTo(3))
                 .value(customers -> customers.get(0).getFirstName(), equalTo("Test Customer Name 1"))
                 .value(customers -> customers.get(1).getFirstName(), equalTo("Funny User Name 2"))
+                .value(customers -> customers.get(2).getLastName(), equalTo("Unicode escape as workaround"))
         ;
     }
 
