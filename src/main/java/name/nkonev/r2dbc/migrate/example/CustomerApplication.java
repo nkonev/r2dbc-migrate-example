@@ -38,9 +38,10 @@ public class CustomerApplication {
     public static void main(String[] args) {
         R2dbcMigrateProperties properties = new R2dbcMigrateProperties();
         properties.setResourcesPaths(Collections.singletonList("db/migration/"));
-        R2dbcMigrate.migrate(getConnectionFactory(), properties, new ReflectionsClasspathResourceReader()).block();
-
         ConnectionFactory connectionFactory = getConnectionFactory();
+
+        R2dbcMigrate.migrate(connectionFactory, properties, new ReflectionsClasspathResourceReader()).block();
+
         DisposableServer server =
                 HttpServer.create()
                         .port(8383)

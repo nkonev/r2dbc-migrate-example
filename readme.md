@@ -1,4 +1,4 @@
-# Example usage r2dbc-migrate
+# Example of usage r2dbc-migrate
 
 1. `docker-compose up -d`
 2. Start CustomerApplication class in your IDE
