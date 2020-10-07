@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <java.version>11</java.version>
-        <r2dbc-migrate.version>1.5.0</r2dbc-migrate.version>
+        <r2dbc-migrate.version>1.5.1</r2dbc-migrate.version>
     </properties>
 
     <dependencyManagement>
