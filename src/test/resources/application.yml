@@ -11,3 +11,4 @@ r2dbc:
   migrate:
     resources-paths:
       - classpath:/db/migration/*.sql
+      - classpath:/test/migration/*.sql
