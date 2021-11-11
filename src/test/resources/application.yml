@@ -1,6 +1,6 @@
 spring:
   r2dbc:
-    url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=12.2
+    url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=14.0
     properties:
       lock_timeout: 40000
       statement_timeout: 40000
