@@ -6,8 +6,6 @@ spring:
     url: r2dbc:pool:postgresql://localhost:4433/customer_db
     username: app_user
     password: password
-    pool:
-      validation-query: SELECT 1
     properties:
       lock_timeout: 40000
       statement_timeout: 40000

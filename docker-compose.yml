@@ -4,10 +4,10 @@ version: '3.7'
 
 services:
   postgres:
-    image: postgres:14.0
+    image: postgres:14.1-alpine3.14
     restart: unless-stopped
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data:z
     environment:
       POSTGRES_DB: customer_db
       POSTGRES_USER: app_user
