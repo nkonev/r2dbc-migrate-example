@@ -10,11 +10,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>2.6.0</spring.boot.version>
-        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <spring.boot.version>2.7.0</spring.boot.version>
+        <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <java.version>11</java.version>
-        <testcontainers.version>1.16.2</testcontainers.version>
-        <r2dbc-migrate.version>1.8.5</r2dbc-migrate.version>
+        <testcontainers.version>1.17.2</testcontainers.version>
+        <r2dbc-migrate.version>2.7.4</r2dbc-migrate.version>
     </properties>
 
     <dependencyManagement>
@@ -68,7 +68,7 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.r2dbc</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>r2dbc-postgresql</artifactId>
         </dependency>
         <dependency>
