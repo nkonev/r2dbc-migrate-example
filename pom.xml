@@ -14,7 +14,7 @@
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <java.version>11</java.version>
         <testcontainers.version>1.17.2</testcontainers.version>
-        <r2dbc-migrate.version>2.7.6</r2dbc-migrate.version>
+        <r2dbc-migrate.version>2.7.7</r2dbc-migrate.version>
     </properties>
 
     <dependencyManagement>
