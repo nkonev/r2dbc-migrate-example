@@ -1,39 +1,30 @@
-package name.nkonev.r2dbc.migrate.example;
+package name.nkonev.r2dbcmigrate.r2dbcmigratenative;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+@ImportRuntimeHints(MigrationRuntimeHints.class)
 @SpringBootApplication
-@RestController
-public class CustomerApplication {
+public class R2dbcMigrateNativeApplication {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(R2dbcMigrateNativeApplication.class);
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerApplication.class);
-
-    public static void main(String[] args) {
-        SpringApplication.run(CustomerApplication.class, args);
-    }
-
     @GetMapping("/customer")
     public Flux<Customer> getCustomer() {
         return customerRepository.findAllByOrderById();
-    }
-
-    @GetMapping("/customer/{id}")
-    public Mono<Customer> getCustomerById(@PathVariable int id) {
-        return customerRepository.findById(id);
     }
 
     @Bean
@@ -45,5 +36,18 @@ public class CustomerApplication {
             });
         };
     }
+
+    public static void main(String[] args) {
+		SpringApplication.run(R2dbcMigrateNativeApplication.class, args);
+	}
+
+}
+
+class MigrationRuntimeHints implements RuntimeHintsRegistrar {
+
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            hints.resources().registerPattern("db/migration/*.sql");
+        }
 
 }

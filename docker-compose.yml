@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: app_user
       POSTGRES_PASSWORD: password
     ports:
-      - 4433:5432
+      - 4333:5432
     logging:
       driver: "json-file"
       options:

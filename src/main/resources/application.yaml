@@ -1,9 +1,9 @@
 server:
-  port: 8383
+  port: 8484
 
 spring:
   r2dbc:
-    url: r2dbc:pool:postgresql://localhost:4433/customer_db
+    url: r2dbc:pool:postgresql://localhost:4333/customer_db
     username: app_user
     password: password
     properties:
