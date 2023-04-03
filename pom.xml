@@ -11,9 +11,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-        <java.version>11</java.version>
-        <r2dbc.version>0.9.0.RELEASE</r2dbc.version>
-        <r2dbc-migrate.version>1.8.3</r2dbc-migrate.version>
+        <java.version>17</java.version>
+        <r2dbc-postgresql.version>1.0.0.RELEASE</r2dbc-postgresql.version>
+        <r2dbc-pool.version>1.0.0.RELEASE</r2dbc-pool.version>
+        <r2dbc-migrate.version>2.9.4</r2dbc-migrate.version>
     </properties>
 
     <dependencyManagement>
@@ -21,7 +22,7 @@
             <dependency>
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-bom</artifactId>
-                <version>2020.0.15</version>
+                <version>2022.0.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -54,12 +55,12 @@
         <dependency>
             <groupId>io.r2dbc</groupId>
             <artifactId>r2dbc-pool</artifactId>
-            <version>${r2dbc.version}</version>
+            <version>${r2dbc-pool.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>r2dbc-postgresql</artifactId>
-            <version>${r2dbc.version}</version>
+            <version>${r2dbc-postgresql.version}</version>
         </dependency>
         <dependency>
             <groupId>name.nkonev.r2dbc-migrate</groupId>
@@ -74,12 +75,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.1</version>
+            <version>2.14.2</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.4.6</version>
         </dependency>
 
     </dependencies>
