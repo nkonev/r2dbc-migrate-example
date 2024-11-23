@@ -1,6 +1,6 @@
 spring:
   r2dbc:
-    url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=14.0
+    url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=14.1-alpine3.14
     properties:
       lock_timeout: 40000
       statement_timeout: 40000
@@ -9,6 +9,7 @@ spring:
 
 r2dbc:
   migrate:
-    resources-paths:
-      - classpath:/db/migration/*.sql
-      - classpath:/test/migration/*.sql
+    resources:
+      - resourcesPaths:
+        - classpath:/db/migration/*.sql
+        - classpath:/test/migration/*.sql
