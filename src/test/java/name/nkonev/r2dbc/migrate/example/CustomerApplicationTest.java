@@ -24,11 +24,11 @@ public class CustomerApplicationTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Customer.class)
-                .value(List::size, equalTo(4))
+                .value(List::size, equalTo(8))
                 .value(customers -> customers.get(0).getFirstName(), equalTo("Test Customer Name 1"))
                 .value(customers -> customers.get(1).getFirstName(), equalTo("Funny User Name 2"))
                 .value(customers -> customers.get(2).getLastName(), equalTo("Unicode escape as workaround"))
-                .value(customers -> customers.get(3).getFirstName(), equalTo("Only Test"))
+                .value(customers -> customers.get(7).getFirstName(), equalTo("Only Test"))
         ;
     }
 

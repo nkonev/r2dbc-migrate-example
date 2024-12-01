@@ -11,3 +11,16 @@ spring:
       statement_timeout: 40000
       idle_in_transaction_session_timeout: 40000
       connectTimeout: PT55S
+
+# you can entirely remove these settings and r2dbc-migrate will automatically execute files from "classpath:/db/migration/*.sql"
+r2dbc:
+  migrate:
+    resources:
+      - resourcesPaths:
+          - classpath:/db/migration/*.sql
+      - version: 6
+        description: "additional"
+        substitute: true
+        resources-paths:
+          - "classpath:/db/additional/file.sql"
+
