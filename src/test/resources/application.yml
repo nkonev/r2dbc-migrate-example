@@ -1,12 +1,3 @@
-spring:
-  r2dbc:
-    url: r2dbc:tc:postgresql:///customer_db?TC_IMAGE_TAG=14.1-alpine3.14
-    properties:
-      lock_timeout: 40000
-      statement_timeout: 40000
-      idle_in_transaction_session_timeout: 40000
-      connectTimeout: PT55S
-
 # you can entirely remove these settings and r2dbc-migrate will automatically execute files from "classpath:/db/migration/*.sql"
 r2dbc:
   migrate:
